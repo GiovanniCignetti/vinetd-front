@@ -3,20 +3,22 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <div className="header">
-      <Link to={`/`}>
-        <div>
-          <img className="logo" src={logo} alt="logo" />
-        </div>
-      </Link>
-      <div>
-        <input></input>
+      <div className="div-logo">
+        <img className="logo" src={logo} alt="logo" />
       </div>
       <div>
-        <button></button>
-        <button></button>
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Recherche des articles"
+        ></input>
+      </div>
+      <div className="btns-left">
+        <button className="btn1">S'inscrire</button>
+        <button>Se connecter</button>
       </div>
       <div>
-        <button></button>
+        <button className="btn-sold">Vends tes articles</button>
       </div>
     </div>
   );

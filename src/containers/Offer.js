@@ -15,6 +15,7 @@ const Offer = () => {
       try {
         const response = await axios.get(
           `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
+          // `https://vinted-giovanni.herokuapp.com/offer/${id}`
         );
         // console.log(response.data);
         setData(response.data);
@@ -31,42 +32,45 @@ const Offer = () => {
   ) : (
     <>
       <Header />
-      <div className="offer-container">
-        <div className="offer-pictures">
-          <img
-            src={data.product_pictures[0].url}
-            alt={data.product_name}
-            className="offer-picture"
-          />
-        </div>
-        <div className="offer-infos">
-          <div>
-            <span className="offer-price">{data.product_price} €</span>
-            <ul>
-              {data.product_details.length > 0 &&
-                data.product_details.map((details, index) => {
-                  return (
-                    <li key={index}>
-                      <span>{Object.keys(details)}</span>
-                      <span>{Object.values(details)}</span>
-                    </li>
-                  );
-                })}
-            </ul>
+      <div className="offer-body">
+        {" "}
+        <div className="offer-container">
+          <div className="offer-pictures">
+            <img
+              src={data.product_pictures[0].url}
+              alt={data.product_name}
+              className="offer-picture"
+            />
           </div>
-          <div className="separator"></div>
-          <div className="offer-content">
-            <p>{data.product_name}</p>
-            <p>{data.product_description}</p>
-            <div className="offer-avatar-username">
-              <img
-                src={data.owner.account.avatar.secure_url}
-                alt={data.product_name}
-              />
-              <span>{data.owner.account.username}</span>
+          <div className="offer-infos">
+            <div>
+              <span className="offer-price">{data.product_price} €</span>
+              <ul className="offer-list">
+                {data.product_details.length > 0 &&
+                  data.product_details.map((details, index) => {
+                    return (
+                      <li key={index}>
+                        <span>{Object.keys(details)}</span>
+                        <span>{Object.values(details)}</span>
+                      </li>
+                    );
+                  })}
+              </ul>
             </div>
+            <div className="separator"></div>
+            <div className="offer-content">
+              <p className="name">{data.product_name}</p>
+              <p className="description">{data.product_description}</p>
+              <div className="offer-avatar-username">
+                <img
+                  src={data.owner.account.avatar.secure_url}
+                  alt={data.product_name}
+                />
+                <span>{data.owner.account.username}</span>
+              </div>
+            </div>
+            <button>Acheter</button>
           </div>
-          <button>Acheter</button>
         </div>
       </div>
     </>

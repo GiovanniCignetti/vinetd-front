@@ -15,6 +15,7 @@ const Home = () => {
       try {
         const response = await axios.get(
           "https://lereacteur-vinted-api.herokuapp.com/offers"
+          // "https://vinted-giovanni.herokuapp.com/offers"
         );
         // console.log(response.data);
         setData(response.data);
@@ -54,10 +55,12 @@ const Home = () => {
                 <div className="item" key={item._id}>
                   {/* Photo User et Pseudo  */}
                   <div className="item-avatar-username">
-                    <img
-                      src={item.owner.account.avatar.secure_url}
-                      alt={item.product_name}
-                    />
+                    {item.owner.account.avatar.secure_url && (
+                      <img
+                        src={item.owner.account.avatar.secure_url}
+                        alt={item.product_name}
+                      />
+                    )}
                     <span>{item.owner.account.username}</span>
                   </div>
                   <div>
