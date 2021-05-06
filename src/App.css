@@ -93,6 +93,12 @@ p {
   outline: none;
 }
 
+.btns-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .btns-left button {
   background-color: #fff;
   color: #2cb1ba;
@@ -301,4 +307,19 @@ p {
   object-fit: cover;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.body-log {
+  width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 3px green;
+}
+
+.signup-form {
+  border: solid 3px red;
+  max-width: 320px;
 }

@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import Header from "../components/Header";
 // import axios
 import axios from "axios";
 // import hook react
@@ -31,7 +30,6 @@ const Offer = () => {
     <span>En cours de chargement... </span>
   ) : (
     <>
-      <Header />
       <div className="offer-body">
         {" "}
         <div className="offer-container">

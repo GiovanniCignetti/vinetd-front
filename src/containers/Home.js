@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
 import imgTop from "../assets/img/imgTop.jpg";
 // import axios
 import axios from "axios";
@@ -31,7 +30,6 @@ const Home = () => {
     <span>En cours de chargement... </span>
   ) : (
     <>
-      <Header />
       <div
         className="home-img-top"
         style={{
