@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Offer = () => {
-  let history = useHistory();
+  const history = useHistory();
   const { id } = useParams();
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -16,8 +16,8 @@ const Offer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          // `https://vinted-giovanni.herokuapp.com/offer/${id}`
-          `http://localhost:3001/offer/${id}`
+          `https://vinted-giovanni.herokuapp.com/offer/${id}`
+          // `http://localhost:3001/offer/${id}`
         );
         // console.log(response.data);
         setData(response.data);

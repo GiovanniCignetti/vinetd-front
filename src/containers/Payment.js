@@ -54,6 +54,7 @@ const Payment = ({ userToken }) => {
                     offerId={offerId}
                     userName={userName}
                     userToken={userToken}
+                    price={price + 1.8}
                   />
                 </Elements>
               </div>

@@ -14,8 +14,8 @@ const LogIn = ({ setUser }) => {
     // vérification si LogIn OK
     try {
       const response = await axios.post(
-        // "https://vinted-giovanni.herokuapp.com/user/login",
-        "http://localhost:3001/user/login",
+        "https://vinted-giovanni.herokuapp.com/user/login",
+        // "http://localhost:3001/user/login",
         {
           email: email,
           password: password,

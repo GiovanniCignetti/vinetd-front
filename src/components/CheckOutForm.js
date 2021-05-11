@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-const CheckOutForm = ({ userToken, userName, offerId }) => {
+const CheckOutForm = ({ userToken, userName, offerId, price }) => {
+  const history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -23,11 +25,13 @@ const CheckOutForm = ({ userToken, userName, offerId }) => {
     // Une fois le token reçu depuis l'API Stripe
     // Requête vers backend avec token reçu par API STRIPE
     const response = await axios.post(
-      // "https://vinted-giovanni.herokuapp.com/payment",
-      "http://localhost:3001/payment",
+      "https://vinted-giovanni.herokuapp.com/payment",
+      // "http://localhost:3001/payment",
       {
         stripeToken,
         offerId,
+        userName,
+        price,
       },
       {
         headers: {
@@ -39,6 +43,7 @@ const CheckOutForm = ({ userToken, userName, offerId }) => {
     // Si la réponse du serveur est favorable, la transaction a eu lieu
     if (response.data.status === "succeeded") {
       setCompleted(true);
+      history.push("/");
     }
   };
 

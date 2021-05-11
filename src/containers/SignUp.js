@@ -13,8 +13,8 @@ const SignUp = ({ setUser }) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        // "https://vinted-giovanni.herokuapp.com/user/signup",
-        "http://localhost:3001/user/signup",
+        "https://vinted-giovanni.herokuapp.com/user/signup",
+        // "http://localhost:3001/user/signup",
         {
           email: email,
           password: password,
