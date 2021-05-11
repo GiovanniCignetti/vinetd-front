@@ -13,8 +13,8 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://lereacteur-vinted-api.herokuapp.com/offers"
           // "https://vinted-giovanni.herokuapp.com/offers"
+          "http://localhost:3001/offers"
         );
         // console.log(response.data);
         setData(response.data);
@@ -39,7 +39,9 @@ const Home = () => {
         <div>
           <div className="home-top-div">
             Prêts à faire du tri dans vos placards ?
-            <button>Commencer à vendre</button>
+            <Link to="/publish">
+              <button>Commencer à vendre</button>
+            </Link>
           </div>
         </div>
       </div>
@@ -49,24 +51,36 @@ const Home = () => {
           data.offers.map((item, index) => {
             // console.log(item._id);
             return (
-              <Link to={`/offer/${item._id}`}>
+              <Link to={`/offer/${item._id}`} key={item._id}>
                 <div className="item" key={item._id}>
                   {/* Photo User et Pseudo  */}
                   <div className="item-avatar-username">
-                    {item.owner.account.avatar.secure_url && (
-                      <img
-                        src={item.owner.account.avatar.secure_url}
-                        alt={item.product_name}
-                      />
+                    {item.owner &&
+                      item.owner.account &&
+                      item.owner.account.avatar &&
+                      item.owner.account.avatar.secure_url && (
+                        <img
+                          src={item.owner.account.avatar.secure_url}
+                          alt={
+                            item.owner &&
+                            item.owner.account &&
+                            item.owner.account.username
+                          }
+                        />
+                      )}
+                    {item.owner && item.owner.account && (
+                      <span>{item.owner.account.username}</span>
                     )}
-                    <span>{item.owner.account.username}</span>
                   </div>
                   <div>
                     {/* Photo Vetement */}
-                    <img
-                      src={item.product_pictures[0].url}
-                      alt={item.product_name}
-                    />
+                    {item.product_image && (
+                      <img
+                        src={item.product_image.secure_url}
+                        alt={item.product_name}
+                      />
+                    )}
+
                     <div className="item_details">
                       <span>{item.product_price} €</span>
                       {item.product_details.length > 0 &&

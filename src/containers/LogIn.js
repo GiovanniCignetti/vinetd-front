@@ -5,8 +5,6 @@ import { useHistory } from "react-router-dom";
 const LogIn = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   //   const token = null;
 
@@ -16,14 +14,18 @@ const LogIn = ({ setUser }) => {
     // vérification si LogIn OK
     try {
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
+        // "https://vinted-giovanni.herokuapp.com/user/login",
+        "http://localhost:3001/user/login",
         {
           email: email,
           password: password,
         }
       );
-      if (response.data.token) {
-        setUser(response.data.token);
+
+      console.log(response.data.account.username);
+
+      if (response.data.token && response.data.account.username) {
+        setUser(response.data.token, response.data.account.username);
         history.push("/");
       } else {
         console.log("Token non reçu");
@@ -35,9 +37,9 @@ const LogIn = ({ setUser }) => {
 
   return (
     <div className="body-log">
-      <div className="login-form">
+      <div className="log-form">
         <h2>Se connecter</h2>
-        <form action="" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Email"
@@ -49,9 +51,10 @@ const LogIn = ({ setUser }) => {
             onChange={(event) => setPassword(event.target.value)}
           />
           <div>
-            <button type="submit">Se connecter</button>
+            <button className="log-form-btn" type="submit">
+              Se connecter
+            </button>
           </div>
-          <div>{!isLoading && <span>{data.token ? 1 : 2}</span>}</div>
         </form>
       </div>
     </div>

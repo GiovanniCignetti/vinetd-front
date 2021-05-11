@@ -1,10 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 // import axios
 import axios from "axios";
 // import hook react
 import { useState, useEffect } from "react";
 
+import { Link } from "react-router-dom";
+
 const Offer = () => {
+  let history = useHistory();
   const { id } = useParams();
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -13,8 +16,8 @@ const Offer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
           // `https://vinted-giovanni.herokuapp.com/offer/${id}`
+          `http://localhost:3001/offer/${id}`
         );
         // console.log(response.data);
         setData(response.data);
@@ -26,6 +29,20 @@ const Offer = () => {
     fetchData();
   }, []);
 
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      history.push("/payment", {
+        price: data.product_price,
+        productName: data.product_name,
+        offerId: data._id,
+        userName: data.owner.account.username,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return isLoading ? (
     <span>En cours de chargement... </span>
   ) : (
@@ -34,11 +51,13 @@ const Offer = () => {
         {" "}
         <div className="offer-container">
           <div className="offer-pictures">
-            <img
-              src={data.product_pictures[0].url}
-              alt={data.product_name}
-              className="offer-picture"
-            />
+            {data && data.product_image && (
+              <img
+                src={data.product_image.secure_url}
+                alt={data.product_name}
+                className="offer-picture"
+              />
+            )}
           </div>
           <div className="offer-infos">
             <div>
@@ -60,14 +79,24 @@ const Offer = () => {
               <p className="name">{data.product_name}</p>
               <p className="description">{data.product_description}</p>
               <div className="offer-avatar-username">
-                <img
-                  src={data.owner.account.avatar.secure_url}
-                  alt={data.product_name}
-                />
-                <span>{data.owner.account.username}</span>
+                {data.owner &&
+                  data.owner.account &&
+                  data.owner.account.avatar && (
+                    <img
+                      src={data.owner.account.avatar.secure_url}
+                      alt={data.product_name}
+                    />
+                  )}
+                {data.owner && data.owner.account && (
+                  <span>{data.owner.account.username}</span>
+                )}
               </div>
             </div>
-            <button>Acheter</button>
+            <form onSubmit={handleSubmit}>
+              <button type="submit" className="buy-btn">
+                Acheter
+              </button>
+            </form>
           </div>
         </div>
       </div>

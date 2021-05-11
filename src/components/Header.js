@@ -1,11 +1,13 @@
 import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
-const Header = ({ setUser, userToken }) => {
+const Header = ({ setUser, userToken, userName }) => {
   return (
     <div className="header">
-      <div className="div-logo">
-        <img className="logo" src={logo} alt="logo" />
-      </div>
+      <Link to="/">
+        <div className="div-logo">
+          <img className="logo" src={logo} alt="logo" />
+        </div>
+      </Link>
       <div>
         <input
           type="text"
@@ -15,7 +17,14 @@ const Header = ({ setUser, userToken }) => {
       </div>
       <div className="btns-left">
         {userToken ? (
-          <button onClick={() => setUser(null)}>Se déconnecter</button>
+          <>
+            <span>{`Bonjour ${userName}`}</span>
+            <Link to="/">
+              <button onClick={() => setUser(null, null)}>
+                Se déconnecter
+              </button>
+            </Link>
+          </>
         ) : (
           <>
             <Link to="/signup">
@@ -28,7 +37,9 @@ const Header = ({ setUser, userToken }) => {
         )}
       </div>
       <div>
-        <button className="btn-sold">Vends tes articles</button>
+        <Link to="/publish">
+          <button className="btn-sold">Vends tes articles</button>
+        </Link>
       </div>
     </div>
   );
